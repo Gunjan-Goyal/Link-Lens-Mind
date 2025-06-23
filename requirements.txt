@@ -1,0 +1,11 @@
+langchain == 0.3.25
+python-dotenv == 1.1.0
+streamlit == 1.46.0
+unstructured == 0.17.2
+faiss-cpu == 1.11.0
+libmagic == 1.0
+python-magic == 0.4.27
+python-magic-bin == 0.4.14
+langchain-google-genai == 2.1.5
+sentence-transformers == 4.1.0
+embeddings == 0.0.8
