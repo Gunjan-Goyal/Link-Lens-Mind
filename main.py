@@ -13,27 +13,27 @@ from langchain_community.vectorstores import FAISS
 
 load_dotenv()
 
-st.title("Research Tool")
+st.title("Research Tool:mag:")
 st.sidebar.title("Article URLs")
 
-urls=[]
-file_path = "faiss_index"
-
-for i in range(3):
-    url = st.sidebar.text_input(f"URL{i+1}")
-    urls.append(url)
-
-process_url_click = st.sidebar.button("Process URLs")
-
+input_urls=[]
+vector_index = None
+#file_path = "faiss_index"
 main_place_folder = st.empty()
 llm = ChatGoogleGenerativeAI(
     model = "gemini-2.0-flash-001",temperature=0.9, max_tokens=500
 )
 embeddings= GoogleGenerativeAIEmbeddings(model= "models/embedding-001")
 
+for i in range(3):
+    url = st.sidebar.text_input(f"URL{i+1}")
+    input_urls.append(url)
+
+process_url_click = st.sidebar.button("Process URLs")
+
 if process_url_click:
     # load data
-    loader = UnstructuredURLLoader(urls= urls)
+    loader = UnstructuredURLLoader(urls= input_urls)
     main_place_folder.text("Loading Data...")
     data = loader.load()
 
@@ -46,19 +46,22 @@ if process_url_click:
     docs = text_split.split_documents(data)
 
     # create embeddings
-    vector_index = FAISS.from_documents(data, embeddings)
     main_place_folder.text("Embedding vector...")
+    vector_index = FAISS.from_documents(data, embeddings)
+    st.session_state.vector_index = vector_index
     time.sleep(2)
 
-    # save locally
-    vector_index.save_local(file_path)
+    # save locally (only for remote)
+    #vector_index.save_local(file_path)
 
 query = main_place_folder.text_input("Question:")
 if query:
-    if os.path.exists(file_path):
-        vector = FAISS.load_local(file_path, embeddings, allow_dangerous_deserialization=True)
+    if "vector_index" in st.session_state:
+        vector = st.session_state.vector_index
+        main_place_folder.text("Retrieving Answer📖...")
         chain= RetrievalQAWithSourcesChain.from_llm(llm=llm, retriever= vector.as_retriever())
         result = chain({"question":query}, return_only_outputs= True)
+        main_place_folder.text("Results...")
         st.subheader("Answer:")
         st.write(result["answer"])
 
