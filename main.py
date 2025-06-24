@@ -5,13 +5,11 @@ from dotenv import load_dotenv
 import langchain
 import langchain_google_genai
 from langchain.chains import RetrievalQAWithSourcesChain
-from langchain.chains.qa_with_sources.loading import load_qa_with_sources_chain
 from langchain.text_splitter import RecursiveCharacterTextSplitter
-from langchain.document_loaders import UnstructuredURLLoader
-from langchain.embeddings.base import Embeddings
+from langchain_community.document_loaders import UnstructuredURLLoader
 from langchain_google_genai import GoogleGenerativeAIEmbeddings
 from langchain_google_genai import ChatGoogleGenerativeAI
-from langchain.vectorstores import FAISS
+from langchain_community.vectorstores import FAISS
 
 load_dotenv()
 
