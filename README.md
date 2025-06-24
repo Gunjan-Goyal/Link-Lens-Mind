@@ -23,3 +23,7 @@ cd Link-Lens-Mind</pre>
 <pre>GOOGLE_API_KEY = your_google_generative_ai_key </pre>
 - Run the app
 <pre>streamlit run main.py</pre>
+
+## 📌 Note
+- Works best with clean article URLs (news/blogs).
+- Due to free API limits, responses may be delayed.
