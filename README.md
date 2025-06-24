@@ -15,11 +15,11 @@ It is built using LangChain, FAISS, and Google Generative AI embeddings.
 
 ## Installation
 - Clone the repo
-<pre> ```bash git clone https://github.com/Gunjan-Goyal/Link-Lens-Mind.git
-cd Link-Lens-Mind``` </pre>
+<pre>git clone https://github.com/Gunjan-Goyal/Link-Lens-Mind.git
+cd Link-Lens-Mind</pre>
 - Set up environment
-<pre> ```bash pip install -r requirements.txt``` </pre>
+<pre>pip install -r requirements.txt </pre>
 - Add your API_key in .env.example file in the root directory:
-<pre> ```bash GOOGLE_API_KEY=your_google_generative_ai_key``` </pre>
+<pre>GOOGLE_API_KEY = your_google_generative_ai_key </pre>
 - Run the app
-<pre> ```bash streamlit run main.py``` </pre>
+<pre>streamlit run main.py</pre>
